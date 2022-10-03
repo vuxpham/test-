@@ -7,7 +7,7 @@ const server = http.createServer((req, res)=>{    //create server object with a 
 	const url = req.url;
 	const method = req.method;
 	
-	if(url === '/'){                              //if input url after host is exactly "/", return this html page
+if(url === '/'){                              //if input url after host is exactly "/", return this html page
 		res.write('<html>');
 		res.write('<head><title>Enter things</title></head>'); //write response into an html file that will return when user request access to site
 		res.write('<body><form action="/message" method="POST"><input type="text" name="message"><button type="submit">Send</button></form></body>');
@@ -26,13 +26,14 @@ const server = http.createServer((req, res)=>{    //create server object with a 
 			const parsedBody = Buffer.concat(body).toString();       //Merge the array of buffers into 1 buffer object, then convert it to a string
 			console.log(parsedBody);                                 //Log the the buffer turned into string
 			const message = parsedBody.split('=')[1];                //Split the buffer 
-			fs.writeFileSync('message.txt', message);                //Write message to file. Must be in here because message is a local variable inside the function
+			fs.writeFileSync('message.txt', message);                //Write message to file. Must be in here because
+		});												             //the declared function does not actually happen until 'end' event 
 		
-		
-		  //writeFile is asynchronous (run parallel with other methods) while writeFileSync is synchronous (runs after previous methods are done)
-		res.statusCode = 302;                     //
+		                                                             //writeFile is asynchronous (run parallel with other methods) while writeFileSync is synchronous (runs after previous methods are done)
+		res.statusCode = 302;                     
 		res.setHeader('Location', '/');
 		return res.end();
+		
 	}
 	
 	res.setHeader('Content-Type', 'text/html');   //after form submitted, url changed to /message => new file => this code runs without error
