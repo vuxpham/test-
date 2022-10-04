@@ -1,10 +1,3 @@
-# DEMO
+# NODEJS LEARNING CANVAS
 
-things things things!
-
-
-update 2
-
-## SUBHEAD
-
-Something something something
+Folder where I store everything I've learned/made in a NodeJS Course
